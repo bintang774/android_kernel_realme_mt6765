@@ -264,6 +264,7 @@ static int input_handle_abs_event(struct input_dev *dev,
 static int input_get_disposition(struct input_dev *dev,
 			  unsigned int type, unsigned int code, int *pval)
 {
+	
 	int disposition = INPUT_IGNORE_EVENT;
 	int value = *pval;
 
