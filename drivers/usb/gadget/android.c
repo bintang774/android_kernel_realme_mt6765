@@ -83,6 +83,7 @@ static const char longname[] = "Gadget Android";
 #define KPOC_USB_VENDOR_ID 0x22D9
 #define KPOC_USB_PRODUCT_ID 0x2768
 #endif
+#endif CONFIG_MTK_KERNEL_POWER_OFF_CHARGING
 
 #ifdef CONFIG_SND_RAWMIDI
 /* f_midi configuration */
