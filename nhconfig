@@ -1,0 +1,1 @@
+mv out/.config nethunter_defconfig && mv nethunter_defconfig arch/arm64/configs/
