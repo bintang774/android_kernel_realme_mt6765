@@ -28,7 +28,7 @@ jobs:
          
       - name: cloning KernelSU
         run: |
-         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.4
 
       - name: clean up
         run: |
