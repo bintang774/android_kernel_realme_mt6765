@@ -3,14 +3,14 @@ name: Build test
 on:
   workflow_dispatch:
   watch:
-   types: [started]
+    types: [started]
 
 defaults:
   run:
-   shell: bash
+    shell: bash
 
 jobs:
- buildtest:
+  buildtest:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,39 +22,48 @@ jobs:
         with: 
           swap-size-gb: 5
          
-      - name: setup package
+      - name: Setup package
         run: |
-         ./S
+          ./S
          
-      - name: cloning KernelSU
+      - name: Cloning KernelSU
         run: |
-         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.4
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.4
 
-      - name: clean up
+      - name: Clean up
         run: |
-         make clean; make mrproper; rm -rf out
+          make clean; make mrproper; rm -rf out
 
-      - name: check toolchain version
+      - name: Check toolchain version
         run: |
-         export PATH="./gcc/bin:$PATH"
-         aarch64-elf-gcc -v
-         
-      - name: start up
-        run: |
-         ./build
+          export PATH="./gcc/bin:$PATH"
+          aarch64-elf-gcc -v
 
-      - name: anykernel ~ zipping
+      - name: Start up
         run: |
-         git clone --depth=1 https://github.com/bintang774/anykernel any
-         cp out/arch/arm64/boot/Image.gz-dtb any
-         cd any && zip -r9 kernel-${{ github.run_id }}.zip *
+          ./build
+
+      - name: Verify output file
+        run: |
+          ls -R out/arch/arm64/boot/
+        
+      - name: AnyKernel ~ Zipping
+        run: |
+          if [ -f out/arch/arm64/boot/Image.gz-dtb ]; then
+            git clone --depth=1 https://github.com/bintang774/anykernel any
+            cp out/arch/arm64/boot/Image.gz-dtb any
+            cd any && zip -r9 kernel-${{ github.run_id }}.zip *
+          else
+            echo "File Image.gz-dtb not found!"
+            exit 1
+          fi
         
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
-           files: |
+          files: |
             /home/runner/any/kernel-*
-           name: Kernel-${{ github.run_id }}
-           tag_name: ${{ github.run_id }}
+          name: Kernel-${{ github.run_id }}
+          tag_name: ${{ github.run_id }}
         env:
-         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
