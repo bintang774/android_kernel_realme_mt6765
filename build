@@ -10,10 +10,4 @@ make CROSS_COMPILE=$yawak ARCH=arm64 O=out nethunter_defconfig
 make CROSS_COMPILE=$yawak ARCH=arm64 O=out -j"$(nproc --all)" \
         HEADER_ARCH=arm64 \
         SUBARCH=arm64 \
-        AS=llvm-as \
-        AR=llvm-ar \
-        NM=llvm-nm \
-        OBJDUMP=llvm-objdump \
-        OBJCOPY=llvm-objcopy \
-        STRIP=llvm-strip \
 	CROSS_COMPILE=$yawak \
