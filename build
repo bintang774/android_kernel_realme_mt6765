@@ -6,8 +6,8 @@ export LOCALVERSION="-eraselk-$RANDOM"
 export PATH="$(pwd)/gcc/bin:$PATH"
 yawak=aarch64-elf-
 
-make CROSS_COMPILE=$yawak ARCH=arm64 O=~/out nethunter_defconfig
-make CROSS_COMPILE=$yawak ARCH=arm64 O=~/out -j16 \
+make CROSS_COMPILE=$yawak ARCH=arm64 O=out nethunter_defconfig
+make CROSS_COMPILE=$yawak ARCH=arm64 O=out -j"$(nproc --all)" \
         HEADER_ARCH=arm64 \
         SUBARCH=arm64 \
         AS=llvm-as \
