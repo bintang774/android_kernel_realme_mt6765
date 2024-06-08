@@ -62,7 +62,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            $(pwd)/any/kernel-*
+            /home/runner/work/android_kernel_realme_mt6765/android_kernel_realme_mt6765/any/*.zip
           name: Kernel-${{ github.run_id }}
           tag_name: ${{ github.run_id }}
         env:
