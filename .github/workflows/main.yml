@@ -45,9 +45,9 @@ jobs:
 
       - name: anykernel ~ zipping
         run: |
-         git clone --depth=1 https://github.com/bintang774/anykernel any && \
-         cp -r ~/out/arch/arm64/boot/Image.gz-dtb ~/any/ && \
-         cd ~/any/ && zip -r9 kernel-${{ github.run_id }}.zip *
+         git clone --depth=1 https://github.com/bintang774/anykernel any
+         cp out/arch/arm64/boot/Image.gz-dtb any
+         cd any && zip -r9 kernel-${{ github.run_id }}.zip *
         
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
