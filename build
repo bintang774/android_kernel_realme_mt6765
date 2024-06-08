@@ -1,15 +1,19 @@
 #!/bin/bash
 export KBUILD_BUILD_USER=eraselk
 export KBUILD_BUILD_HOST=gacorprjkt
-echo $KBUILD_BUILD_USER
-echo $KBUILD_BUILD_HOST
-export LOCALVERSION="-justkernel"
+export LOCALVERSION="-eraselk-$RANDOM"
 
 export PATH="$(pwd)/gcc/bin:$PATH"
-yawak=aarch64-linux-gnu-
+yawak=aarch64-elf-
 
 make CROSS_COMPILE=$yawak ARCH=arm64 O=~/out nethunter_defconfig
 make CROSS_COMPILE=$yawak ARCH=arm64 O=~/out -j16 \
         HEADER_ARCH=arm64 \
         SUBARCH=arm64 \
+        AS=llvm-as \
+        AR=llvm-ar \
+        NM=llvm-nm \
+        OBJDUMP=llvm-objdump \
+        OBJCOPY=llvm-objcopy \
+        STRIP=llvm-strip \
 	CROSS_COMPILE=$yawak \
